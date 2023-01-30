@@ -50,16 +50,7 @@ public class ComparatorHomework {
         System.out.println(notebooks);
         Collections.sort(notebooks, RamPriseComparator);
         System.out.println("Сортировка по ОЗУ и цене");        
-        System.out.println(notebooks);
-
-        // 2. Реализовать итератор для массива
-
-        // int[] source = {1, 2, 3, 4, 5, 6, 7};
-        // Iterator<Integer> intArrayIterator = new IntArrayIterator(source);
-        // while (intArrayIterator.hasNext()) {
-        // // FIXME: 20.01.2023 Должно работать!
-        // System.out.println(intArrayIterator.next());
-        // }
+        System.out.println(notebooks);      
     }
 
     private static class Notebook {
@@ -82,29 +73,7 @@ public class ComparatorHomework {
 
         @Override
         public String toString() {
-
             return "[ОЗУ: " + ram + ", Цена: " + price + "]";
         }
     }
-
-    // private static class IntArrayIterator implements Iterator<Integer> {
-
-    // private final int[] source;
-
-    // public IntArrayIterator(int[] source) {
-    // this.source = source;
-    // }
-
-    // @Override
-    // public boolean hasNext() {
-    // // FIXME: 20.01.2023 Код писать тут
-    // return false;
-    // }
-
-    // @Override
-    // public Integer next() {
-    // // FIXME: 20.01.2023 Код писать тут
-    // return null;
-    // }
-    // }
-}
+}    
