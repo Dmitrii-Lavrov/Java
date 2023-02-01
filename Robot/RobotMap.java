@@ -7,7 +7,7 @@ public class RobotMap {
     private final int n;
     private final int m;
     private final int maxRobotCount;
-    private final List<Robot> robots;
+    public final List<Robot> robots;
 
     public RobotMap(int n, int m, int maxRobotCount) throws ValidationMap {
         this.n = n;
