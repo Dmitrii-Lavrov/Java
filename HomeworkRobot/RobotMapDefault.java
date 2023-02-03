@@ -1,14 +1,14 @@
 package HomeworkRobot;
 import java.util.*;
 
-public class RobotMapDefolt implements RobotMap {
+public class RobotMapDefault implements RobotMap {
 
     private final int n;
     private final int m;
     public final List<Robot> robots;
     private Robot robot;
 
-    public RobotMapDefolt(int n, int m) throws RobotMapCreationException {
+    public RobotMapDefault(int n, int m) throws RobotMapCreationException {
         if (n < 0 || m < 0) {
             throw new RobotMapCreationException("Некоректный размер карты");
         }
@@ -27,9 +27,9 @@ public class RobotMapDefolt implements RobotMap {
             throw new RobotCreationException(e.getMessage());
         }
 
-        Robot robot = new Robot(robotPosition);
+        Robot robot = new RobotDefault(robotPosition);
         robots.add(robot);        
-        System.out.println(robot);
+        System.out.println("Добавлен новый робот" + robot);
         return robot;
     }
 
@@ -38,9 +38,8 @@ public class RobotMapDefolt implements RobotMap {
                 throw new CommandExecutionException("Такого робота нет!");
             }
 
-
         for (int i = 0; i < robots.size(); i++) {
-            if (id == robots.get(i).id) {    
+            if (id == robots.get(i).getID()) {    //id == robots.get(i).id
                 this.robot = robots.get(i);    
                 break;                                  
             }                    
@@ -58,22 +57,22 @@ public class RobotMapDefolt implements RobotMap {
 
     private void validatePointIsFree(Point point) throws PointValidationException {
         for (Robot robot : robots) {
-            if (point.equals(robot.getPoint())) {
+            if (point.equals(robot.getPoint())) {//point.equals(robot.getPoint())
                 throw new PointValidationException("Позиция " + point + " занята другим роботом: " + robot);
             }
         }
     }
 
-    public class Robot  {
+    public class RobotDefault implements Robot {
         
         public static final Direction DEFAULT_DIRECTION = Direction.TOP;
 
         private static Long idSequence = 1L;       
         public final Long id;
         private MapPoint point;
-        private Direction direction;
+        public Direction direction;
 
-        public Robot(MapPoint point) {
+        public RobotDefault(MapPoint point) {
             this.id = idSequence++; //UUID.randomUUID();
             this.point = point;
             this.direction = DEFAULT_DIRECTION;
@@ -96,16 +95,22 @@ public class RobotMapDefolt implements RobotMap {
             }
 
             this.point = newPoint;
-        }
+            System.out.println("robot-" + id + " перемещен на точку: " + point);
+        } 
 
         public void changeDirection(Direction direction) {            
-            this.direction = direction;            
+            this.direction = direction;      
+            System.out.println(robot + " изменил направление на: " + direction);      
         }
 
         public MapPoint getPoint() {
             return point;
         }
-        
+
+        public Long getID() {
+            return id;
+        }
+
         @Override
         public String toString() {
             return "[Робот-" + id + "] точка " + point;

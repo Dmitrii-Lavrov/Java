@@ -102,7 +102,7 @@ public class Main {
 
             try {
                 map.createRobot(new Point(x, y));
-                System.out.println("Добавлен новый робот");
+                
             } catch (RobotCreationException e) {
                 throw new CommandExecutionException(e.getMessage());
 
@@ -118,7 +118,7 @@ public class Main {
 
             Long id = Long.parseLong(args[0]);
             int l = Integer.parseInt(args[1]);
-// 
+
             try {
                 map.findRobot(id).move(l);
             } catch (RobotMoveException e) {
@@ -135,10 +135,7 @@ public class Main {
 
             Long id = Long.parseLong(args[0]);
             String d = args[1];
-
-            // if (id > map.robots.size() || id < 1) {
-            //     throw new CommandExecutionException("Такого робота нет!");
-            // }
+            
 
             if (d.equals("t")) {
                 direction = Direction.TOP;
