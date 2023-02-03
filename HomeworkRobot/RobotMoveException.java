@@ -1,14 +1,14 @@
 package HomeworkRobot;
 public class RobotMoveException extends Exception {
 
-    private final RobotMap.Robot robot;
+    private final RobotMapDefolt.Robot robot;
 
-    public RobotMoveException(String message, RobotMap.Robot robot) {
+    public RobotMoveException(String message, RobotMapDefolt.Robot robot) {
         super(message);
         this.robot = robot;
     }
 
-    public RobotMap.Robot getRobot() {
+    public RobotMapDefolt.Robot getRobot() {
         return robot;
     }
 }

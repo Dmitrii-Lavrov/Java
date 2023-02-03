@@ -17,6 +17,8 @@ public class Main {
 
         System.out.println("Добро пожаловать в игру!");
         System.out.println("...описание...");
+        
+        RobotMapFactory robotMapFactory = new RobotMapFactory(); 
 
         RobotMap map;
         while (true) {
@@ -26,7 +28,7 @@ public class Main {
                 int m = userInput.nextInt();
                 userInput.nextLine();
 
-                map = new RobotMap(n, m);
+                map = robotMapFactory.create(n, m);
                 break;
             } catch (RobotMapCreationException | InputMismatchException e) {
                 System.err.println("Возникла ошибка при создании карты: " + e.getMessage());
@@ -116,23 +118,13 @@ public class Main {
 
             Long id = Long.parseLong(args[0]);
             int l = Integer.parseInt(args[1]);
-
-            if (id > map.robots.size() || id < 1) {
-                throw new CommandExecutionException("Такого робота нет!");
-            }
-
+// 
             try {
-                for (int i = 0; i < map.robots.size(); i++) {
-                    if (id == map.robots.get(i).id) {
-                        map.robots.get(i).move(l);
-                        System.out.println("Робот перемещен!");
-                        break;
-                    }                    
-                }
+                map.findRobot(id).move(l);
             } catch (RobotMoveException e) {
                 throw new CommandExecutionException(e.getMessage());
             }
-
+            
             return null;
         }
 
@@ -141,12 +133,12 @@ public class Main {
                 throw new CommandExecutionException("Недостаточно аргументов");
             }
 
-            int id = Integer.parseInt(args[0]);
+            Long id = Long.parseLong(args[0]);
             String d = args[1];
 
-            if (id > map.robots.size() || id < 1) {
-                throw new CommandExecutionException("Такого робота нет!");
-            }
+            // if (id > map.robots.size() || id < 1) {
+            //     throw new CommandExecutionException("Такого робота нет!");
+            // }
 
             if (d.equals("t")) {
                 direction = Direction.TOP;
@@ -158,21 +150,14 @@ public class Main {
                 direction = Direction.LEFT;
             } else {
                 throw new CommandExecutionException("Неверно указано направление!");
-            }           
-
-            for (int i = 0; i < map.robots.size(); i++) {
-                if (id == map.robots.get(i).id) {
-                    map.robots.get(i).changeDirection(direction);   
-                    System.out.println("Робот изменил направление!");                 
-                    break;
-                }
-
-            }
+            }       
+            map.findRobot(id).changeDirection(direction);            
+            
             return null;
         }
 
         private String listRobots(String[] args) {
-            return String.valueOf(map.robots);
+            return String.valueOf(map.getList());
             
         }
 
